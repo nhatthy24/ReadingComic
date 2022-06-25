@@ -34,15 +34,18 @@ public class Comic {
 	private List<Likes> listLikes;
 	private boolean isFull;
 	private boolean isDisplay;
+	private int chapter_number;
 	
 	public Comic() {
 		super();
 	}
 
 
+	
+
 	public Comic(long id, String name, String author, String nation, String category, Calendar date_created,
 			String cover_image, String description, List<Chapter> listChapter, List<Comment> listComment,
-			List<Likes> listLikes, boolean isFull, boolean isDisplay) {
+			List<Likes> listLikes, boolean isFull, boolean isDisplay, int chapter_number) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -57,7 +60,10 @@ public class Comic {
 		this.listLikes = listLikes;
 		this.isFull = isFull;
 		this.isDisplay = isDisplay;
+		this.chapter_number = chapter_number;
 	}
+
+
 
 
 
@@ -171,6 +177,20 @@ public class Comic {
 	public void setDisplay(boolean isDisplay) {
 		this.isDisplay = isDisplay;
 	}
+
+
+	public int getChapter_number() {
+		return chapter_number;
+	}
+
+
+
+
+	public void setChapter_number(int chapter_number) {
+		this.chapter_number = chapter_number;
+	}
+
+
 
 
 	//chapter

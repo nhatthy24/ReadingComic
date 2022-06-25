@@ -54,7 +54,7 @@ public class ComicController {
 		List<Chapter> chapters=new ArrayList<Chapter>();
 		List<Comment> comments=new ArrayList<Comment>();
 		List<Likes> likes=new ArrayList<Likes>();
-		Comic comic=new Comic(4, "comic4", "Jenny", "Vietnam", "Comic", a, "this is link cover image", "this discription", chapters, comments, likes,true,true);
+		Comic comic=new Comic(4, "comic4", "Jenny", "Vietnam", "Comic", a, "this is link cover image", "this discription", chapters, comments, likes,true,true,10);
 		Chapter chapter1=new Chapter(5,comic, "chapter5", a, "this is chapter5 content",comments );
 		comic.addChapter(chapter1);
 		return comicRepository.save(comic);
