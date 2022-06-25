@@ -83,6 +83,11 @@ public class ComicController {
 		return ResponseEntity.ok(updatedComic);
 	}
 	//Chapter
+	@GetMapping("/comics/{id}/chapters")
+	public List<Chapter> getAllChaptersByIdComic(@PathVariable(value = "id") Long comicId) throws ResourceNotFoundException{
+		Comic comic = comicRepository.findById(comicId).orElseThrow(() -> new ResourceNotFoundException("Comic not found for this id :: " + comicId));
+		return comic.getListChapter();
+	}
 	@PutMapping("/comics/chapters/{id}/{chapter_id}")
 	public ResponseEntity<Comic> updateChapter(@PathVariable(value = "id") Long comicId,@PathVariable(value = "chapter_id") Long chaper_Id) throws ResourceNotFoundException {
 		Comic comic = comicRepository.findById(comicId)
@@ -116,6 +121,12 @@ public class ComicController {
 	}
 	
 	//Comment
+	@GetMapping("/comics/comments/{id}/{chapter_id}")
+	public List<Comment> getAllCommentByComicIdChapterId(@PathVariable(value = "id") Long comicId,@PathVariable(value = "chapter_id") Long chaper_Id) throws ResourceNotFoundException{
+		Comic comic = comicRepository.findById(comicId).orElseThrow(() -> new ResourceNotFoundException("Comic not found for this id :: " + comicId));
+		Chapter chapter=comic.findChapterById(chaper_Id);
+		return chapter.getListComment();
+	}
 	@PutMapping("/comics/comments/{id}/{user_id}/{chapter_id}")
 	public ResponseEntity<Comic> addComment(@PathVariable(value = "id") Long comicId,@PathVariable(value = "user_id") Long user_Id,@PathVariable(value = "chapter_id") Long chaper_Id) throws ResourceNotFoundException {
 		Comic comic = comicRepository.findById(comicId)

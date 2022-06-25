@@ -194,6 +194,16 @@ public class Comic {
 
 
 	//chapter
+	public Chapter findChapterById(long chapterId) {
+		Chapter result=new Chapter();
+		for(Chapter c:listChapter) {
+			if(c.getId()==chapterId) {
+				int index=this.listChapter.indexOf(c);
+				result=this.listChapter.get(index);
+			}
+		}
+		return result;
+	}
 	public void addChapter(Chapter chater) {
 		this.listChapter.add(chater);
 	}
