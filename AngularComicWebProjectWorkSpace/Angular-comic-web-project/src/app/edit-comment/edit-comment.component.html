@@ -1,0 +1,100 @@
+
+<div class="page-wrapper">
+  <div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col">
+          <h3 class="page-title">Sửa nội dung bình luận </h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="product.html">Truyện</a></li>
+            <li class="breadcrumb-item"><a href="product.html">Những ngày thơ bé</a></li>
+            <li class="breadcrumb-item"><a href="blog.html">Chương 1 _ Tiếng gió chiều</a></li>
+            <li class="breadcrumb-item active">Sửa nội dung bình luận</li>
+          </ul>
+        </div>
+        <!-- <div class="col-auto text-right">
+          <a class="btn btn-white filter-btn" href="javascript:void(0);" id="filter_search">
+            <i class="fas fa-filter"></i>
+          </a>
+          <a href="add-category.html" class="btn btn-primary add-button ml-3">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div> -->
+      </div>
+    </div>
+    <!-- /Page Header -->
+
+    <!-- Search Filter -->
+    <div class="card filter-card" id="filter_inputs">
+      <div class="card-body pb-0">
+        <form action="#" method="post">
+          <div class="row filter-row">
+
+            <!-- thay đổi ở đây ************************ -->
+            <div class="col-sm-6 col-md-3">
+              <div class="form-group">
+                <label>Mã sản phẩm</label>
+                <input class="form-control" type="text">
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="form-group">
+                <label>Tên sản phẩm</label>
+                <input class="form-control" type="text">
+              </div>
+            </div>
+            <!-- Thay đổi theo danh sách đề mục -->
+
+            <div class="col-sm-6 col-md-3">
+              <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">Chọn</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /Search Filter -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <!-- <table class="table table-hover table-center mb-0 datatable"> -->
+              <!-- Thay đổi code ở đây Thay đổi theo file word -->
+              <!-- Form -->
+              <form action="categories.html">
+
+                <div class="form-group">
+                  <label>ID</label>
+                  <input readonly class="form-control" type="text" value="1">
+                </div>
+                <div class="form-group">
+                  <label>Mã người dùng</label>
+                  <input readonly class="form-control" type="text" value="0001">
+                </div>
+                <div class="form-group">
+                  <label>Nội dung</label>
+                  <input class="form-control" type="text" value="Câu chuyện rất cảm động">
+                </div>
+                <div class="form-group">
+                  <label>Ngày tạo</label>
+                  <input class="form-control" type="date" value="01/01/2022">
+                </div>
+                <div class="mt-4">
+                  <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
+                  <a href="categories.html" class="btn btn-link">Hủy</a>
+                </div>
+              </form>
+              <!-- /Form -->
+              <!-- Thêm vào nội dung ở đây -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
