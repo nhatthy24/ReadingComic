@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Comic {
 	@Id
@@ -20,6 +22,7 @@ public class Comic {
 	private String author;
 	private String nation;
 	private String category;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Calendar date_created;
 	private String cover_image;
 	private String description;

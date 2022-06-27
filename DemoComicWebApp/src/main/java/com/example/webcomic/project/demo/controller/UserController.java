@@ -49,7 +49,7 @@ public class UserController {
 		Calendar a=Calendar.getInstance();
 		List<Comment> comments=new ArrayList<Comment>();
 		List<Likes> likes=new ArrayList<Likes>();
-		User user=new User(5, "username", "link avatar", a, 1, "userpassword", comments, likes);
+		User user=new User(5, "username", "link avatar", a, 1, "userpassword", comments, likes,"useremail@gmail.com");
 		
 		return userRepository.save(user);
 	}
@@ -76,5 +76,19 @@ public class UserController {
 		user.setAvatar("New link avatar");
 		final User updatedUser = userRepository.save(user);
 		return ResponseEntity.ok(updatedUser);
+	}
+	//Comment
+	@GetMapping("users/{id}/comments")
+	public List<Comment> getListCommentByUserId(@PathVariable(value = "id") Long userId)
+			throws ResourceNotFoundException {
+		User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
+		return user.getListComment();
+	}
+	//Like
+	@GetMapping("users/{id}/likes")
+	public List<Likes> getListLikeByUserId(@PathVariable(value = "id") Long userId)
+			throws ResourceNotFoundException {
+		User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
+		return user.getListLikes();
 	}
 }

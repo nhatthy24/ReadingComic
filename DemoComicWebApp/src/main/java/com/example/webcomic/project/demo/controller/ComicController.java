@@ -174,7 +174,7 @@ public class ComicController {
 		
 		Calendar a=Calendar.getInstance();
 		
-		Likes likes=new Likes(1, user, comic);
+		Likes likes=new Likes(1, user, comic,a);
 		
 		comic.addLikes(likes);		
 		

@@ -26,13 +26,16 @@ public class User {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
 	private List<Likes> listLikes;
+	private String email;
 	
 	public User() {
 		super();
 	}
 
+	
+
 	public User(long id, String name, String avatar, Calendar date_created, long role_id, String password,
-			List<Comment> listComment, List<Likes> listLikes) {
+			List<Comment> listComment, List<Likes> listLikes, String email) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -42,7 +45,10 @@ public class User {
 		this.password = password;
 		this.listComment = listComment;
 		this.listLikes = listLikes;
+		this.email = email;
 	}
+
+
 
 	public long getId() {
 		return id;
@@ -106,6 +112,18 @@ public class User {
 
 	public void setListLikes(List<Likes> listLikes) {
 		this.listLikes = listLikes;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	
