@@ -200,6 +200,9 @@ BẠN CÓ THỂ THÍCH
   flex-direction: row;
   height: 130px;
 }
+.story-preview:hover{
+  text-decoration: none;
+}
 .preview-cover{
   height: 100%;
   width: unset;
@@ -262,4 +265,8 @@ BẠN CÓ THỂ THÍCH
   color: #6f6f6f;
   /*word-break: break-word;*/
   font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

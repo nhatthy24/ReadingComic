@@ -1,1 +1,3 @@
-<app-comic></app-comic>
+<div [@routeAnimation]="prepareRoute(myOutlet)">
+  <router-outlet #myOutlet='outlet'></router-outlet>
+</div>

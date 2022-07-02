@@ -1,0 +1,132 @@
+<div *ngIf="comic != undefined">
+<div class="reading-funbar">
+  <div id="funbar-story" class="dropdown">
+    <button id="funbar-part-details" type="button" class="btn btn-toc dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="toc-full">
+              <span class="cover cover-xxs" data-toggle="tooltip" data-placement="bottom" title="">
+              <img src="{{comic.cover_image}}" alt="{{comic.name}}">
+              </span>
+              <span class="info">
+                <h2 class="title h5">
+                  {{comic.name}}
+                </h2>
+                <span class="author h6">-{{comic.author}}-</span>
+              </span>
+            <!--            <span class="fa fa-down fa-wp-neutral-2 " aria-hidden="true" style="font-size:20px;"></span>-->
+          </span>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="funbar-part-details" *ngIf="chapter != undefined">
+      <div class="toc-header text-center">
+        <h6><a class="on-navigate" href="/story/308679467-edit-quy%E1%BB%83n-1-xuy%C3%AAn-nhanh-sau-khi-n%E1%BB%AF-ch%C3%ADnh-ph%E1%BA%A3n">{{comic.name}}</a></h6>
+      </div>
+      <ul class="table-of-contents" *ngFor="let ch of listChapters">
+        <li *ngIf="ch.id!=chapter.id">
+          <a class="on-navigate" routerLink="/reading/{{comic.id}}/{{ch.id}}">
+            <div class="part-title">
+              {{ch.name}}
+            </div>
+          </a>
+        </li>
+        <li class="active" *ngIf="ch.id==chapter.id">
+          <a class="on-navigate" routerLink="/reading/{{comic.id}}/{{ch.id}}">
+            <div class="part-title">
+              {{ch.name}}
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="funbar-controls">
+    <div class="button-group relative inline-block">
+      <button class="btn-add">
+        <i class="fas fa-plus" style="font-size: 14px"></i>
+      </button>
+    </div>
+    <div class="button-group relative inline-block">
+      <button class="btn btn-link on-vote" data-story-id="1236903856">
+        <i class="far fa-star star"></i>
+        <span class="hidden-mobile hidden-xs hidden-sm story-vote">Bình chọn</span>
+      </button>
+      <button class="btn btn-link on-vote" data-story-id="1236903856">
+        <i class="fas fa-star star"></i>
+        <span class="hidden-mobile hidden-xs hidden-sm story-vote">Đã bình chọn</span>
+      </button>
+      <div id="vote-tool-tip" data-toggle="tooltip" data-placement="bottom" data-original-title="There was an error registering your vote"></div>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="chapter!= undefined">
+  <div class="row part-header">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <header class="panel panel-reading text-center">
+        <h1 class="h2">{{chapter.name}}
+        </h1>
+        <div class="story-stats">
+          <span class="reads">
+            <i class="far fa-eye" style="font-size: 14px"></i> 56
+          </span>
+          <span class="votes">
+            <i class="far fa-star" style="font-size: 14px"></i> 22
+          </span>
+          <span class="comments on-comments">
+            <i class="fas fa-comment"></i> 0
+          </span>
+        </div>
+        <div class="author hidden-lg">
+<!--          <a class="on-navigate avatar avatar-sm center-block" href="/user/-tinhtinhnha-">-->
+<!--            <img class="on-hover" data-toggle="tooltip" data-placement="right" title="" alt="Writer: -tinhtinhnha-" src="https://img.wattpad.com/useravatar/-tinhtinhnha-.24.863001.jpg" data-original-title="Writer: -tinhtinhnha-">-->
+<!--          </a>-->
+          <a class="on-navigate" href="/user/-tinhtinhnha-">-{{comic.author}}-</a>
+        </div>
+      </header>
+    </div>
+  </div>
+</div>
+<div class="container" id="sticky-end" *ngIf="chapter!= undefined">
+  <div oncontextmenu="return false;" class="row part-content">
+<!--    <div class="col-md-1 col-lg-3 hidden-sm hidden-xs left-rail" style="">-->
+<!--      <div id="sticky-nav">-->
+<!--        <div class="author-info center-text hidden-sm hidden-md">-->
+<!--          <div class="avatar avatar-lg center-block">-->
+<!--            <a class="on-navigate" href="/user/-tinhtinhnha-">-->
+<!--              <img src="https://img.wattpad.com/useravatar/-tinhtinhnha-.128.863001.jpg">-->
+<!--            </a>-->
+<!--          </div>-->
+<!--          <div class="info">-->
+<!--            <a class="on-navigate" href="/user/-tinhtinhnha-">-->
+<!--              <span class="center-block">by <strong>-{{comic.author}}-</strong></span>-->
+<!--            </a>-->
+<!--&lt;!&ndash;            <button class="btn-fan on-unfollow btn-teal" data-target="-tinhtinhnha-"><i class="fas fa-user-check"></i><span class="follow-text">Đang theo dõi</span></button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button class="btn-on-follow"><i class="fas fa-user-plus"></i><span class="follow-text">Theo dõi</span></button>&ndash;&gt;-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div id="sp1237744284-pg1" data-page-number="1" class="page highlighter col-md-12 col-lg-12">
+      <p [innerHTML]="chapter.content"></p>
+    </div>
+  </div>
+
+</div>
+<footer>
+  <div class="container" *ngIf="chapter!=undefined">
+    <div class="row part-content">
+      <div class="part-navigation center-block">
+        <a routerLink="/reading/{{comic.id}}/{{preChapter(chapter.id)}}" class="btn-direct-part btn-pre-part">
+          <span class="blue next-up">
+            <i class="fas fa-angle-left"></i>
+            Chương trước</span>
+        </a>
+<!--        <a href="#" class="btn-direct-part btn-part">-->
+<!--          <span class="blue next-up"><i class="fas fa-align-justify"></i></span>-->
+<!--        </a>-->
+        <a routerLink="/reading/{{comic.id}}/{{conChapter(chapter.id)}}" class="btn-direct-part btn-con-part">
+          <span class="blue next-up">Chương sau
+            <i class="fas fa-angle-right"></i></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>
