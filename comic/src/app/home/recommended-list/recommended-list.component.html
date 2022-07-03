@@ -1,0 +1,19 @@
+<div class="main-recommended">
+  <div class="recommended-title">
+    <i class="fas fa-book"></i>
+    <h1>Truyện đề cử</h1>
+  </div>
+  <div class="recommended-list">
+    <div *ngFor="let comic of listComics">
+      <a routerLink="/detail/{{comic.id}}">
+        <div class="recommended-list-card">
+          <div class="recommended-list-item-status" style="color: #fff;" *ngIf="comic.full=='1'">Hoàn</div>
+          <div class="recommended-list-item-img">
+            <img src="{{comic.cover_image}}" alt="{{comic.name}}">
+          </div>
+          <h6 class="recommended-list-item-title">{{comic.name}}</h6>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

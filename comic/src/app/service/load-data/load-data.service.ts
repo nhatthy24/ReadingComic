@@ -15,4 +15,12 @@ export class LoadDataService {
   listAllComics(){
     return this._http.get("http://localhost:3000/comic");
   }
+
+  getComicById(id: any) {
+    return this._http.get("http://localhost:3000/comic/"+id);
+  }
+
+  getChapterByComicId(id: any) {
+    return this._http.get("http://localhost:3000/chapter?comic_id="+id);
+  }
 }

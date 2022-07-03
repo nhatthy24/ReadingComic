@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadDataService} from "../service/load-data/load-data.service";
+import {Observable} from "rxjs";
+import {Comic} from "../model/comic";
+import {ComicService} from "../service/comic/comic.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-comic',
@@ -7,17 +11,19 @@ import { LoadDataService} from "../service/load-data/load-data.service";
   styleUrls: ['./comic.component.css']
 })
 export class ComicComponent implements OnInit {
-  dataComic: any;
-
-  constructor(private loadDataService: LoadDataService) { }
+  comics: Comic[] | undefined;
+  constructor(private comicService: ComicService, private activatedRouter: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getAllComics();
   }
 
   getAllComics(){
-    this.loadDataService.listAllComics().subscribe((res) =>{
-      this.dataComic = res;
+    this.comicService.getComicsList().subscribe(res =>{
+      this.comics = res;
+      console.log(res);
+    }, error => {
+      console.log(error);
     })
   }
 
