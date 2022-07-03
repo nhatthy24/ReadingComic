@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.webcomic.project.demo.exeption.ResourceNotFoundException;
 import com.example.webcomic.project.demo.model.Chapter;
@@ -27,10 +31,9 @@ import com.example.webcomic.project.demo.model.User;
 import com.example.webcomic.project.demo.repository.ChapterRepository;
 import com.example.webcomic.project.demo.repository.ComicRepository;
 import com.example.webcomic.project.demo.repository.UserRepository;
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1")
-public class ComicController {
+public class ComicController implements WebMvcConfigurer{
 	@Autowired
 	private ComicRepository comicRepository;
 	@Autowired
@@ -49,15 +52,15 @@ public class ComicController {
 			return ResponseEntity.ok().body(comic);
 	}
 	@PostMapping("/comics")
-	public Comic createComic() {
-		Calendar a=Calendar.getInstance();
-		List<Chapter> chapters=new ArrayList<Chapter>();
-		List<Comment> comments=new ArrayList<Comment>();
-		List<Likes> likes=new ArrayList<Likes>();
-		Comic comic=new Comic(4, "comic4", "Jenny", "Vietnam", "Comic", a, "this is link cover image", "this discription", chapters, comments, likes,true,true,10);
-		Chapter chapter1=new Chapter(5,comic, "chapter5", a, "this is chapter5 content",comments );
-		comic.addChapter(chapter1);
-		return comicRepository.save(comic);
+	public Comic createComic(@Valid @RequestBody Comic comic) {
+//		Calendar a=Calendar.getInstance();
+//		List<Chapter> chapters=new ArrayList<Chapter>();
+//		List<Comment> comments=new ArrayList<Comment>();
+//		List<Likes> likes=new ArrayList<Likes>();
+//		Comic comic=new Comic(4, "comic4", "Jenny", "Vietnam", "Comic", a, "this is link cover image", "this discription", chapters, comments, likes,true,true,10);
+//		Chapter chapter1=new Chapter(5,comic, "chapter5", a, "this is chapter5 content",comments );
+//		comic.addChapter(chapter1);
+		return comicRepository.save(comic);	
 	}
 	@DeleteMapping("/comics/{id}")
 	public Map<String, Boolean> deleteComic(@PathVariable(value = "id") Long comicId)
@@ -71,14 +74,21 @@ public class ComicController {
 		return response;
 	}
 	@PutMapping("/comics/{id}")
-	public ResponseEntity<Comic> updateComic(@PathVariable(value = "id") Long comicId) throws ResourceNotFoundException {
+	public ResponseEntity<Comic> updateComic(@PathVariable(value = "id") Long comicId, @Valid @RequestBody Comic comicDetails) throws ResourceNotFoundException {
 		Comic comic = comicRepository.findById(comicId)
 				.orElseThrow(() -> new ResourceNotFoundException("Comic not found for this id :: " + comicId));
 		
-		Calendar a=Calendar.getInstance();
-
-		comic.setName("comic was updated");
-		comic.setDate_created(a);
+		comic.setCover_image(comicDetails.getCover_image());
+		comic.setName(comicDetails.getName());
+		comic.setAuthor(comicDetails.getAuthor());
+		comic.setNation(comicDetails.getNation());
+		comic.setChapter_number(comicDetails.getChapter_number());
+		comic.setDate_created(comicDetails.getDate_created());
+		comic.setCategory(comicDetails.getCategory());
+		comic.setDisplay(comicDetails.isDisplay());
+		comic.setFull(comicDetails.isFull());
+		comic.setDescription(comicDetails.getDescription());
+		
 		final Comic updatedComic = comicRepository.save(comic);
 		return ResponseEntity.ok(updatedComic);
 	}
@@ -181,5 +191,13 @@ public class ComicController {
 		final Comic addedChapterComic = comicRepository.save(comic);
 		return ResponseEntity.ok(addedChapterComic);
 	}
+	
+	//Allow method
+	@Override
+     public void addCorsMappings(CorsRegistry registry) {
+         registry.addMapping("/api/v1/**").allowedOrigins("*").allowedMethods("GET", "POST","PUT", "DELETE");
+
+
+     }
 }
 	
