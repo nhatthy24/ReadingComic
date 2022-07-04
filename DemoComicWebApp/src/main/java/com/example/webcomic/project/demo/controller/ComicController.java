@@ -131,6 +131,11 @@ public class ComicController implements WebMvcConfigurer{
 	}
 	
 	//Comment
+	@GetMapping("/comics/comments/{id}")
+	public List<Comment> getAllCommentByComicId(@PathVariable(value = "id") Long comicId) throws ResourceNotFoundException{
+		Comic comic = comicRepository.findById(comicId).orElseThrow(() -> new ResourceNotFoundException("Comic not found for this id :: " + comicId));
+		return comic.getListComment();
+	}
 	@GetMapping("/comics/comments/{id}/{chapter_id}")
 	public List<Comment> getAllCommentByComicIdChapterId(@PathVariable(value = "id") Long comicId,@PathVariable(value = "chapter_id") Long chaper_Id) throws ResourceNotFoundException{
 		Comic comic = comicRepository.findById(comicId).orElseThrow(() -> new ResourceNotFoundException("Comic not found for this id :: " + comicId));
@@ -175,6 +180,11 @@ public class ComicController implements WebMvcConfigurer{
 	}
 	
 	//Likes
+	@GetMapping("/comics/likes/{id}")
+	public List<Likes> getAllLikeByComicId(@PathVariable(value = "id") Long comicId) throws ResourceNotFoundException{
+		Comic comic = comicRepository.findById(comicId).orElseThrow(() -> new ResourceNotFoundException("Comic not found for this id :: " + comicId));
+		return comic.getListLikes();
+	}
 	@PutMapping("/comics/likes/{id}/{user_id}")
 	public ResponseEntity<Comic> addLikes(@PathVariable(value = "id") Long comicId,@PathVariable(value = "user_id") Long user_Id) throws ResourceNotFoundException {
 		Comic comic = comicRepository.findById(comicId)

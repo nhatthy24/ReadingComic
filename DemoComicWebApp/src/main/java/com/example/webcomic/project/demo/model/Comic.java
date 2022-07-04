@@ -38,6 +38,7 @@ public class Comic {
 	private boolean isFull;
 	private boolean isDisplay;
 	private int chapter_number;
+	private int watch_number;
 	
 	public Comic() {
 		super();
@@ -46,9 +47,17 @@ public class Comic {
 
 	
 
+	
+
+
+
+
+
+
+
 	public Comic(long id, String name, String author, String nation, String category, Calendar date_created,
 			String cover_image, String description, List<Chapter> listChapter, List<Comment> listComment,
-			List<Likes> listLikes, boolean isFull, boolean isDisplay, int chapter_number) {
+			List<Likes> listLikes, boolean isFull, boolean isDisplay, int chapter_number, int watch_number) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -64,7 +73,12 @@ public class Comic {
 		this.isFull = isFull;
 		this.isDisplay = isDisplay;
 		this.chapter_number = chapter_number;
+		this.watch_number = watch_number;
 	}
+
+
+
+
 
 
 
@@ -192,6 +206,36 @@ public class Comic {
 	public void setChapter_number(int chapter_number) {
 		this.chapter_number = chapter_number;
 	}
+
+
+
+
+	public int getWatch_number() {
+		return watch_number;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+	public void setWatch_number(int watch_number) {
+		this.watch_number = watch_number;
+	}
+
+
+
+
+
+
+
+
 
 
 
