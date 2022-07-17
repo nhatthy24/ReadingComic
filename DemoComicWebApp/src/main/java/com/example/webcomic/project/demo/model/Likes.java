@@ -76,17 +76,17 @@ public class Likes {
 //		return user;
 //	}
 //
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 //
 //	public Comic getComic() {
 //		return comic;
 //	}
 //
-//	public void setComic(Comic comic) {
-//		this.comic = comic;
-//	}
+	public void setComic(Comic comic) {
+		this.comic = comic;
+	}
 //	
 	
 }

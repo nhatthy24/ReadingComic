@@ -45,13 +45,16 @@ public class UserController {
 			return ResponseEntity.ok().body(user);
 	}
 	@PostMapping("/users")
-	public User createUser() {
+	public User createUser( @Valid @RequestBody User usersDetails) {
 		Calendar a=Calendar.getInstance();
 		List<Comment> comments=new ArrayList<Comment>();
 		List<Likes> likes=new ArrayList<Likes>();
-		User user=new User(5, "username", "link avatar", a, 1, "userpassword", comments, likes,"useremail@gmail.com");
 		
-		return userRepository.save(user);
+		usersDetails.setDate_created(a);
+		usersDetails.setListComment(comments);
+		usersDetails.setListLikes(likes);
+		
+		return userRepository.save(usersDetails);
 	}
 	@DeleteMapping("/users/{id}")
 	public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId)
@@ -65,15 +68,15 @@ public class UserController {
 		return response;
 	}
 	@PutMapping("/users/{id}")
-	public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
+	public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId, @Valid @RequestBody User usersDetails) throws ResourceNotFoundException {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("Comic not found for this id :: " + userId));
 		
-		Calendar a=Calendar.getInstance();
-
-		user.setName("userName was updated");
-		user.setDate_created(a);
-		user.setAvatar("New link avatar");
+		user.setAvatar(usersDetails.getAvatar());
+		user.setName(usersDetails.getName());
+		user.setEmail(usersDetails.getEmail());
+		user.setPassword(usersDetails.getPassword());
+		user.setDate_created(usersDetails.getDate_created());
 		final User updatedUser = userRepository.save(user);
 		return ResponseEntity.ok(updatedUser);
 	}

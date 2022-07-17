@@ -68,9 +68,9 @@ public class Comment {
 //		return comic;
 //	}
 //
-//	public void setComic(Comic comic) {
-//		this.comic = comic;
-//	}
+	public void setComic(Comic comic) {
+		this.comic = comic;
+	}
 //
 	public String getContent() {
 		return content;
@@ -96,17 +96,17 @@ public class Comment {
 //		return chapter;
 //	}
 //
-//	public void setChapter(Chapter chapter) {
-//		this.chapter = chapter;
-//	}
+	public void setChapter(Chapter chapter) {
+		this.chapter = chapter;
+	}
 //
 //	public User getUser() {
 //		return user;
 //	}
 //
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
 	
 }

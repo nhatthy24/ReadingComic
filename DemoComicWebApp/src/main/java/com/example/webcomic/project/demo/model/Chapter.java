@@ -74,9 +74,9 @@ public class Chapter {
 //		return comic;
 //	}
 //
-//	public void setComic(Comic comic) {
-//		this.comic = comic;
-//	}
+	public void setComic(Comic comic) {
+		this.comic = comic;
+	}
 //
 	public String getName() {
 		return name;

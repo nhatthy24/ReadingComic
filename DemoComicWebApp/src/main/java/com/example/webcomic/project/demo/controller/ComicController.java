@@ -99,31 +99,24 @@ public class ComicController implements WebMvcConfigurer{
 		return comic.getListChapter();
 	}
 	@PutMapping("/comics/chapters/{id}/{chapter_id}")
-	public ResponseEntity<Comic> updateChapter(@PathVariable(value = "id") Long comicId,@PathVariable(value = "chapter_id") Long chaper_Id) throws ResourceNotFoundException {
+	public ResponseEntity<Comic> updateChapter(@PathVariable(value = "id") Long comicId,@PathVariable(value = "chapter_id") Long chaper_Id, @Valid @RequestBody Chapter chapterDetails) throws ResourceNotFoundException {
+		System.out.println("Gia tri cua comic id la: "+comicId);
 		Comic comic = comicRepository.findById(comicId)
 				.orElseThrow(() -> new ResourceNotFoundException("Comic not found for this id :: " + comicId));
-		
-		Calendar a=Calendar.getInstance();
-		List<Comment> comments=new ArrayList<Comment>();
-		Chapter chapterUpdate=new Chapter(chaper_Id,comic, "chapter5update", a, "this is chapter5 content after update v2",comments );
-		
-		comic.setName("comic 4 update");
-		comic.updateChapter(chaper_Id, chapterUpdate);		
+		chapterDetails.setComic(comic);
+		comic.updateChapter(chaper_Id, chapterDetails);		
 		
 		System.out.println("gia tri chapter cua commit"+comic.getListChapter().get(0).getContent());
 		final Comic updatedComic = comicRepository.save(comic);
 		return ResponseEntity.ok(updatedComic);
 	}
 	@PutMapping("/comics/chapters/{id}")
-	public ResponseEntity<Comic> addChapter(@PathVariable(value = "id") Long comicId) throws ResourceNotFoundException {
+	public ResponseEntity<Comic> addChapter(@PathVariable(value = "id") Long comicId,@Valid @RequestBody Chapter chapterDetails) throws ResourceNotFoundException {
 		Comic comic = comicRepository.findById(comicId)
 				.orElseThrow(() -> new ResourceNotFoundException("Comic not found for this id :: " + comicId));
 		
-		Calendar a=Calendar.getInstance();
-		List<Comment> comments=new ArrayList<Comment>();
-		Chapter chapterAdded=new Chapter(6,comic, "chapter6add", a, "this is chapter5 added",comments );
-		
-		comic.addChapter(chapterAdded);		
+		chapterDetails.setComic(comic);
+		comic.addChapter(chapterDetails);		
 		
 		System.out.println("gia tri chapter cua commit"+comic.getListChapter().get(0).getContent());
 		final Comic addedChapterComic = comicRepository.save(comic);
@@ -142,8 +135,8 @@ public class ComicController implements WebMvcConfigurer{
 		Chapter chapter=comic.findChapterById(chaper_Id);
 		return chapter.getListComment();
 	}
-	@PutMapping("/comics/comments/{id}/{user_id}/{chapter_id}")
-	public ResponseEntity<Comic> addComment(@PathVariable(value = "id") Long comicId,@PathVariable(value = "user_id") Long user_Id,@PathVariable(value = "chapter_id") Long chaper_Id) throws ResourceNotFoundException {
+	@PutMapping("/comics/comments/{id}/{chapter_id}/{user_id}")
+	public ResponseEntity<Comic> addComment(@PathVariable(value = "id") Long comicId,@PathVariable(value = "chapter_id") Long chaper_Id,@PathVariable(value = "user_id") Long user_Id, @Valid @RequestBody Comment commentDetails) throws ResourceNotFoundException {
 		Comic comic = comicRepository.findById(comicId)
 				.orElseThrow(() -> new ResourceNotFoundException("Comic not found for this id :: " + comicId));
 		Chapter chapter = chapterRepository.findById(chaper_Id)
@@ -153,15 +146,18 @@ public class ComicController implements WebMvcConfigurer{
 		
 		Calendar a=Calendar.getInstance();
 		
-		Comment comment=new Comment(9, comic, "this is cotent of comment added", chapter, user,a);
+		commentDetails.setComic(comic);
+		commentDetails.setChapter(chapter);
+		commentDetails.setUser(user);
+		commentDetails.setDate_created(a);
 		
-		comic.addComment(comment);		
+		comic.addComment(commentDetails);		
 		
 		final Comic addedChapterComic = comicRepository.save(comic);
 		return ResponseEntity.ok(addedChapterComic);
 	}
-	@PutMapping("/comics/comments/{id}/{user_id}/{chapter_id}/{comment_id}")
-	public ResponseEntity<Comic> updateComment(@PathVariable(value = "id") Long comicId,@PathVariable(value = "user_id") Long user_Id,@PathVariable(value = "chapter_id") Long chaper_Id,@PathVariable(value = "comment_id") Long comment_Id) throws ResourceNotFoundException {
+	@PutMapping("/comics/comments/{id}/{chapter_id}/{comment_id}/{user_id}")
+	public ResponseEntity<Comic> updateComment(@PathVariable(value = "id") Long comicId,@PathVariable(value = "chapter_id") Long chaper_Id,@PathVariable(value = "comment_id") Long comment_Id,@PathVariable(value = "user_id") Long user_Id, @Valid @RequestBody Comment commentDetails) throws ResourceNotFoundException {
 		Comic comic = comicRepository.findById(comicId)
 				.orElseThrow(() -> new ResourceNotFoundException("Comic not found for this id :: " + comicId));
 		Chapter chapter = chapterRepository.findById(chaper_Id)
@@ -171,9 +167,12 @@ public class ComicController implements WebMvcConfigurer{
 		
 		Calendar a=Calendar.getInstance();
 		
-		Comment commentUpdate=new Comment(1, comic, "this is cotent of comment updatedv1", chapter, user,a);
+		commentDetails.setComic(comic);
+		commentDetails.setChapter(chapter);
+		commentDetails.setUser(user);
+		commentDetails.setDate_created(a);
 		
-		comic.updateComment(comment_Id, commentUpdate);		
+		comic.updateComment(comment_Id, commentDetails);		
 		
 		final Comic addedChapterComic = comicRepository.save(comic);
 		return ResponseEntity.ok(addedChapterComic);
@@ -186,17 +185,18 @@ public class ComicController implements WebMvcConfigurer{
 		return comic.getListLikes();
 	}
 	@PutMapping("/comics/likes/{id}/{user_id}")
-	public ResponseEntity<Comic> addLikes(@PathVariable(value = "id") Long comicId,@PathVariable(value = "user_id") Long user_Id) throws ResourceNotFoundException {
+	public ResponseEntity<Comic> addLikes(@PathVariable(value = "id") Long comicId,@PathVariable(value = "user_id") Long user_Id, @Valid @RequestBody Likes likeDetails) throws ResourceNotFoundException {
 		Comic comic = comicRepository.findById(comicId)
 				.orElseThrow(() -> new ResourceNotFoundException("Comic not found for this id :: " + comicId));
 		User user = userRepository.findById(user_Id)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + user_Id));
 		
 		Calendar a=Calendar.getInstance();
+		likeDetails.setComic(comic);
+		likeDetails.setUser(user);
+		likeDetails.setDate_created(a);
 		
-		Likes likes=new Likes(1, user, comic,a);
-		
-		comic.addLikes(likes);		
+		comic.addLikes(likeDetails);		
 		
 		final Comic addedChapterComic = comicRepository.save(comic);
 		return ResponseEntity.ok(addedChapterComic);
