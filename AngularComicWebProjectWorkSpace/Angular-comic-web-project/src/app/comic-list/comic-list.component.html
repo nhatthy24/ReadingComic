@@ -9,10 +9,10 @@
             <h3 class="page-title">Danh sách truyện</h3>
           </div>
           <div class="col-auto text-right">
-            <a class="btn btn-white filter-btn" href="javascript:void(0);" id="filter_search">
-              <i class="fas fa-filter"></i>
-            </a>
-            <a href="add-product.html" class="btn btn-primary add-button ml-3">
+<!--            <a class="btn btn-white filter-btn" href="javascript:void(0);" id="filter_search">-->
+<!--              <i class="fas fa-filter"></i>-->
+<!--            </a>-->
+            <a [routerLink]="['/add-comic']"   class="btn btn-primary add-button ml-3">
               <i class="fas fa-plus"></i>
             </a>
           </div>
@@ -21,58 +21,19 @@
       <!-- /Page Header -->
 
       <!-- Search Filter -->
-      <div class="card filter-card" id="filter_inputs">
+      <div class="card filter-card" >
         <div class="card-body pb-0">
-          <form action="#" method="post">
+          <form (ngSubmit)="search(searchTerm)" method="post">
             <div class="row filter-row">
-
-              <!-- thay đổi ở đây ************************ -->
-              <div class="col-sm-6 col-md-3">
+              <div class="col-sm-6 col-md-9">
                 <div class="form-group">
-                  <label>Mã sản phẩm</label>
-                  <input class="form-control" type="text">
+                  <label>Tên tryện</label>
+                  <input  [(ngModel)]="searchTerm" name="searchTerm" placeholder="Nhập tên truyện ..." class="form-control" type="text">
                 </div>
               </div>
               <div class="col-sm-6 col-md-3">
                 <div class="form-group">
-                  <label>Tên sản phẩm</label>
-                  <input class="form-control" type="text">
-                </div>
-              </div>
-              <!-- Thay đổi theo danh sách đề mục -->
-              <div class="col-sm-6 col-md-3">
-                <div class="form-group">
-                  <label>Category</label>
-                  <select class="form-control select">
-                    <option>Chọn Danh Mục</option>
-                    <option>Cây để bàn</option>
-                    <option>Cây dây leo</option>
-                    <option>Cây tết</option>
-                    <option>Cây thủy sinh</option>
-                    <option>Cây trong nhà</option>
-                    <option>Cây ngoài vườn</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3">
-                <div class="form-group">
-                  <label>Từ Ngày</label>
-                  <div class="cal-icon">
-                    <input class="form-control datetimepicker" type="text">
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3">
-                <div class="form-group">
-                  <label>Đến Ngày</label>
-                  <div class="cal-icon">
-                    <input class="form-control datetimepicker" type="text">
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3">
-                <div class="form-group">
-                  <button class="btn btn-primary btn-block" type="submit">Chọn</button>
+                  <button class="btn btn-primary btn-block" type="submit">Tìm Kiếm</button>
                 </div>
               </div>
             </div>
@@ -98,14 +59,13 @@
                     <th>Ngày xuất bản</th>
                     <th>Quốc gia</th>
                     <th>Chương</th>
-                    <th>Hiển thị</th>
                     <th class="text-right">Hành Động</th>
                   </tr>
                   </thead>
 
                   <!-- Thêm vào nội dung ở đây -->
                   <tbody>
-                  <tr  *ngFor="let comic of comics | async ">
+                  <tr  *ngFor="let comic of comicsAll |searchByName: searchTerm">
                     <td>{{comic.id}}</td>
                     <td><img class="rounded service-img mr-1" src="{{comic.cover_image}}" alt="Hình ảnh danh mục"></td>
                     <td>{{comic.name}}</td>
@@ -113,16 +73,10 @@
                     <td>{{comic.author}}</td>
                     <td>{{comic.date_created}}</td>
                     <td>{{comic.nation}}</td>
-                    <td><a href="comics/{{comic.id}}/chapters">Xem</a></td>
-                    <td>
-                      <div class="status-toggle">
-                        <input id="rating_1" class="check" type="checkbox" checked>
-                        <label for="rating_1" class="checktoggle">checkbox</label>
-                      </div>
-                    </td>
+                    <td><a [routerLink]="['/comics/'+comic.id]+'/chapters'">Xem</a></td>
                     <td class="text-right">
-                      <a href="edit-comic/{{comic.id}}" class="btn btn-sm bg-success-light mr-2">	<i class="far fa-edit mr-1"></i> Sửa</a>
-                      <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</button>
+                      <a [routerLink]="['/edit-comic/'+comic.id]" class="btn btn-sm bg-success-light mr-2">	<i class="far fa-edit mr-1"></i> Sửa</a>
+                      <button (click)="deleteComic(comic.id||0)" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</button>
 
                     </td>
                   </tr>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from "rxjs";
-import {Router} from "@angular/router";
+import {Observable, Subscription} from "rxjs";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ComicService} from "../comic.service";
-import {Comic, Employee} from "../comic";
+import {Comic, Comment, Employee} from "../comic";
 
 
 
@@ -12,9 +12,12 @@ import {Comic, Employee} from "../comic";
   styleUrls: ['./comic-list.component.css']
 })
 export class ComicListComponent implements OnInit {
-  comics: Observable<Comic[]> | undefined;
+  comics:  Observable<any> | undefined;
+  comicsSearch: Comic[] = [];
+  comicsAll: Comic[] = [];
+  searchTerm = '';
 
-  constructor(private comicService: ComicService,
+  constructor(private route: ActivatedRoute,private comicService: ComicService,
               private router: Router) {
   }
 
@@ -24,5 +27,24 @@ export class ComicListComponent implements OnInit {
 
   reloadData() {
     this.comics = this.comicService.getComicsList();
+    this.comicService.getComicsList().subscribe((comicsData: Comic[]) => {
+      this.comicsAll = comicsData;
+    });
+  }
+  deleteComic(id: number) {
+    this.comicService.deleteComicByComicId(id).subscribe(
+      data => {
+        console.log(data);
+        this.reloadData();
+      },
+      error => console.log(error));
+  }
+  search(value: string): void {
+    this.comicService.getComicsList().subscribe((comicsData: Comic[]) => {
+      this.comicsAll = comicsData;
+    });
+    this.comicsSearch = this.comicsAll.filter((val) =>
+      val.name?.toLowerCase().includes(value)
+    );
   }
 }

@@ -17,6 +17,8 @@ import {EditUserComponent} from "./edit-user/edit-user.component";
 import {AddAdminComponent} from "./add-admin/add-admin.component";
 import {EditAdminComponent} from "./edit-admin/edit-admin.component";
 import {EmployeesComponent} from "./employees/employees.component";
+import {ComicLoginComponent} from "./comic-login/comic-login.component";
+import {ComicRegisterComponent} from "./comic-register/comic-register.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -27,15 +29,17 @@ const routes: Routes = [
   { path: 'admins', component: AdminListComponent},
   { path: 'employees', component: EmployeesComponent},
   { path: 'dashboard', component: DashboardComponent},
+  { path: 'comic-login', component: ComicLoginComponent},
+  { path: 'comic-register', component: ComicRegisterComponent},
 
   { path: 'edit-comic/:id', component: EditComicComponent},
   { path: 'add-comic', component: AddComicComponent},
 
-  { path: 'add-chapter', component: AddChapterComponent},
-  { path: 'edit-chapter', component: EditChapterComponent},
+  { path: 'add-chapter/:id', component: AddChapterComponent},
+  { path: 'edit-chapter/:id/:chapterid', component: EditChapterComponent},
 
-  { path: 'add-comment', component: AddCommentComponent},
-  { path: 'edit-comment', component: EditCommentComponent},
+  { path: 'add-comment/:id/:chapterid', component: AddCommentComponent},
+  { path: 'edit-comment/:id/:chapterid/:commentid', component: EditCommentComponent},
 
   { path: 'add-user', component: AddUserComponent},
   { path: 'edit-user/:userId', component: EditUserComponent},

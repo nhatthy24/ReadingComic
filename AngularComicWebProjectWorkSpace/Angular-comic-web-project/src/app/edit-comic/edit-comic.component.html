@@ -8,7 +8,7 @@
         <div class="col">
           <h3 class="page-title">Sửa truyện</h3>
           <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="product.html">Truyện</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/comics']">Truyện</a></li>
             <li class="breadcrumb-item active">Sửa truyện</li>
           </ul>
         </div>
@@ -78,60 +78,64 @@
               <!-- <table class="table table-hover table-center mb-0 datatable"> -->
               <!-- Thay đổi code ở đây Thay đổi theo file word -->
               <!-- Form -->
-              <form *ngIf="comic" (ngSubmit)="onSubmit()" action="categories.html">
+              <form *ngIf="comic" (ngSubmit)="onSubmit()">
 
                 <div class="form-group">
                   <label>Ảnh bìa</label>
-                  <input class="form-control" type="file">
+                  <input class="form-control" id="cover_image" name="cover_image" type="text"  [(ngModel)]="comic.cover_image">
+<!--                  <div class="avatar">-->
+<!--                    <img class="avatar-img rounded" alt="" src="{{comic.cover_image}}">-->
+<!--                  </div>-->
                 </div>
-                <div class="form-group">
-                  <div class="avatar">
-                    <img class="avatar-img rounded" alt="" src="{{comic.cover_image}}">
-                  </div>
-                </div>
+<!--                <div class="form-group">-->
+<!--                  <div class="avatar">-->
+<!--                    <img class="avatar-img rounded" alt="" src="{{comic.cover_image}}">-->
+<!--                  </div>-->
+<!--                </div>-->
                 <div class="form-group">
                   <label>Tên truyện</label>
-                  <input class="form-control" type="text"  [(ngModel)]="comic.name"  value="{{comic.name}}" >
+                  <input class="form-control" id="name" name="name" type="text"  [(ngModel)]="comic.name">
                 </div>
                 <div class="form-group">
                   <label>Tác giả</label>
-                  <input class="form-control" type="text" [(ngModel)]="comic.author" value="{{comic.author}}">
+                  <input class="form-control" id="author" name="author" type="text" [(ngModel)]="comic.author">
                 </div>
                 <div class="form-group">
                   <label>Quốc gia</label>
-                  <input class="form-control" type="text" [(ngModel)]="comic.nation" value="{{comic.nation}}">
+                  <input class="form-control"  id="nation" name="nation" type="text" [(ngModel)]="comic.nation">
                 </div>
-
                 <div class="form-group">
                   <label>Số chương</label>
-                  <input class="form-control" type="text" [(ngModel)]="comic.chapter_number" value="{{comic.chapter_number}}">
+                  <input class="form-control" id="chapter_number" name="chapter_number" type="text" [(ngModel)]="comic.chapter_number">
                 </div>
                 <div class="form-group">
                   <label>Ngày xuất bản</label>
-                  <input class="form-control" type="date" [(ngModel)]="comic.date_created" value="{{comic.date_created}}">
+                  <input class="form-control"  id="date_created" name="date_created"  type="text" [(ngModel)]="comic.date_created">
                 </div>
                 <div class="form-group">
                   <label>Chọn danh mục</label><br>
-                  <select class="form-control select">
-                    <option>Chọn Danh Mục</option>
-                    <option>Danh mục 1</option>
-                    <option>Danh mục 2</option>
-                    <option>Danh mục 3</option>
-                    <option>Danh mục 4</option>
+                  <select [(ngModel)]="comic.category"  id="category" name="category" class="form-control select">
+                    <option  *ngFor="let o of options">
+                      {{o.name}}
+                    </option>
                   </select>
                 </div>
                 <div class="status-toggle">
-                  <label>Hiển thị</label>
-                  <input id="rating_2" class="check" type="checkbox" checked>
-                  <label for="rating_2" class="checktoggle">checkbox</label>
+                  <input [(ngModel)]="comic.display"  id="display" name="display"  type="checkbox">
+                  <label style="margin-left: 2px">Hiển thị</label>
+                  <br>
+                  <input [(ngModel)]="comic.full"  id="full" name="full"  type="checkbox">
+                  <label style="margin-left: 2px">Hoàn thành</label>
+                  <!--                <input id="rating_2" class="check" type="checkbox" checked>-->
+                  <!--                <label for="rating_2" [(ngModel)]="comic.display" [ngModelOptions]="{standalone: true}" id="display" name="display" class="checktoggle">checkbox</label>-->
                 </div>
                 <div class="form-group">
                   <label>Mô tả</label>
-                  <textarea style="height: 100px;" class="form-control" [(ngModel)]="comic.description" type="text">{{comic.description}}</textarea>
+                  <textarea style="height: 100px;" class="form-control"  id="description" name="description"  [(ngModel)]="comic.description" type="text"></textarea>
                 </div>
                 <div class="mt-4">
                   <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
-                  <a href="categories.html" class="btn btn-link">Hủy</a>
+                  <a (click)="gotoList()" class="btn btn-link">Hủy</a>
                 </div>
               </form>
               <!-- /Form -->

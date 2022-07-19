@@ -11,6 +11,10 @@ import {ComicService} from "../comic.service";
 })
 export class EditComicComponent implements OnInit {
   comic: Comic | undefined;
+  options = [
+    { name: "Danh mục 1", value: "Danh mục 1" },
+    { name: "Danh mục 2", value: "Danh mục 2" }
+  ]
   constructor(private route: ActivatedRoute,private comicService: ComicService,
     private router: Router) {
   }
@@ -26,9 +30,17 @@ export class EditComicComponent implements OnInit {
      this.comic = data;
    }, error => console.log(error));
   }
+  update() {
+    this.comicService.updateComicByComicId(this.route.snapshot.params['id'],this.comic)
+      .subscribe(data => console.log(data), error => console.log(error));
+    this.gotoList();
+  }
   onSubmit() {
-    this.router.navigate(['/comics']);
+    this.update();
   }
 
-
+  gotoList() {
+    this.reloadData();
+    this.router.navigate(['/comics']);
+  }
 }

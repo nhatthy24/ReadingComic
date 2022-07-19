@@ -8,8 +8,8 @@
         <div class="col">
           <h3 class="page-title">Thêm chương mới</h3>
           <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="blog.html">Truyện</a></li>
-            <li class="breadcrumb-item"><a href="blog.html">Những ngày thơ bé</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/comics']">Truyện</a></li>
+            <li *ngIf="comic" class="breadcrumb-item active"><a [routerLink]="['/comics/'+comic.id+'/chapters']">{{comic.name}}</a></li>
             <li class="breadcrumb-item active">Thêm chương mới</li>
           </ul>
         </div>
@@ -25,29 +25,23 @@
         <div class="card">
           <div class="card-body">
 
-            <form action="categories.html">
+            <form (ngSubmit)="onSubmit()">
 
               <div class="form-group">
                 <label>Tên</label>
-                <input class="form-control" type="text" value="">
-              </div>
-              <div class="form-group">
-                <label>Tóm tắt</label>
-                <textarea style="height: 100px;" class="form-control" type="text"></textarea>
+                <input class="form-control" type="text" id="name" name="name" [(ngModel)]="chapter.name">
               </div>
               <div class="form-group">
                 <label>Ngày xuất bản</label>
-                <input class="form-control" type="date" value="01/01/2022">
+                <input class="form-control" type="date" id="date_created" name="date_created" [(ngModel)]="chapter.date_created">
               </div>
               <div>
                 <label>Nội dung</label>
-                <textarea name="" id="textExample" cols="30" rows="10">
-
-										</textarea>
+                <textarea style="height: 400px;" name="" class="form-control" id="content" name="content" type="text"  [(ngModel)]="chapter.content"></textarea>
               </div>
               <div class="mt-4">
                 <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
-                <a href="categories.html" class="btn btn-link">Hủy</a>
+                <a (click)="gotoList()" class="btn btn-link">Hủy</a>
               </div>
             </form>
             <!-- /Form -->

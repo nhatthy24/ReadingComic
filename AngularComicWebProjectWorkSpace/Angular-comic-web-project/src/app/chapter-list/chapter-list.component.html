@@ -8,16 +8,13 @@
         <div class="col">
           <h3 class="page-title">Danh sách chương</h3>
           <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="product.html">Truyện</a></li>
-            <li class="breadcrumb-item"><a href="product.html">Những ngày thơ bé</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/comics']">Truyện</a></li>
+            <li *ngIf="comic" class="breadcrumb-item active">{{comic.name}}</li>
             <li class="breadcrumb-item active">Danh sách chương</li>
           </ul>
         </div>
         <div class="col-auto text-right">
-          <a class="btn btn-white filter-btn" href="javascript:void(0);" id="filter_search">
-            <i class="fas fa-filter"></i>
-          </a>
-          <a href="add-blog.html" class="btn btn-primary add-button ml-3">
+          <a [routerLink]="['/add-chapter/'+comic_id]" class="btn btn-primary add-button ml-3">
             <i class="fas fa-plus"></i>
           </a>
         </div>
@@ -26,38 +23,19 @@
     <!-- /Page Header -->
 
     <!-- Search Filter -->
-    <div class="card filter-card" id="filter_inputs">
+    <div class="card filter-card" >
       <div class="card-body pb-0">
-        <form action="#" method="post">
+        <form (ngSubmit)="search(searchTerm)" method="post">
           <div class="row filter-row">
-
-            <!-- thay đổi ở đây ************************ -->
-            <!-- Thay đổi theo danh sách đề mục -->
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-9">
               <div class="form-group">
-                <label>Tên</label>
-                <input class="form-control" type="text">
+                <label>Tên chương</label>
+                <input  [(ngModel)]="searchTerm" name="searchTerm" placeholder="Nhập tên chương..." class="form-control" type="text">
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="form-group">
-                <label>Từ Ngày</label>
-                <div class="cal-icon">
-                  <input class="form-control datetimepicker" type="text">
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="form-group">
-                <label>Đến Ngày</label>
-                <div class="cal-icon">
-                  <input class="form-control datetimepicker" type="text">
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="form-group">
-                <button class="btn btn-primary btn-block" type="submit">Chọn</button>
+                <button class="btn btn-primary btn-block" type="submit">Tìm Kiếm</button>
               </div>
             </div>
           </div>
@@ -79,26 +57,19 @@
                   <th>Tên chương</th>
                   <th>Ngày tạo</th>
                   <th>Bình luận</th>
-                  <th>Hiển thị</th>
                   <th class="text-right">Hành Động</th>
                 </tr>
                 </thead>
                 <!-- Thêm vào nội dung ở đây -->
                 <tbody>
-                <tr  *ngFor="let chapter of chapters | async ">
+                <tr  *ngFor="let chapter of chaptersAll |searchByName: searchTerm">
                   <td>{{chapter.id}}</td>
                   <td>{{chapter.name}}</td>
                   <td>{{chapter.date_created}}</td>
-                  <td><a href="comics/comments/{{comic_id}}/{{chapter.id}}">Xem</a></td>
-                  <td>
-                    <div class="status-toggle">
-                      <input id="rating_1" class="check" type="checkbox" checked>
-                      <label for="rating_1" class="checktoggle">checkbox</label>
-                    </div>
-                  </td>
+                  <td><a [routerLink]="['/comics/comments/'+comic_id+'/'+chapter.id]">Xem</a></td>
                   <td class="text-right">
-                    <a href="edit-blog.html" class="btn btn-sm bg-success-light mr-2">	<i class="far fa-edit mr-1"></i> Sửa</a>
-                    <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</button>
+                    <a [routerLink]="['/edit-chapter/'+comic_id+'/'+chapter.id]" class="btn btn-sm bg-success-light mr-2">	<i class="far fa-edit mr-1"></i> Sửa</a>
+                    <button (click)="deleteChapter(chapter.id||0)" type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i> Xóa</button>
 
                   </td>
                 </tr>

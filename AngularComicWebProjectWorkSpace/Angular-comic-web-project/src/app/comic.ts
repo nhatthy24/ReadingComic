@@ -1,3 +1,5 @@
+import {Pipe, PipeTransform} from "@angular/core";
+
 export class Employee {
   id: number | undefined;
   first_tName: string | undefined;
@@ -52,3 +54,7 @@ export class User{
   listLikes: Like[] | undefined ;
   email: string | undefined;
 }
+
+
+
+

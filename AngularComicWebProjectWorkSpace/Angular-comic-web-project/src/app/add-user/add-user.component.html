@@ -9,7 +9,7 @@
         <div class="col">
           <h3 class="page-title">Thêm người dùng mới</h3>
           <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="users.html">Người dùng</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/users']">Người dùng</a></li>
             <li class="breadcrumb-item active">Thêm người dùng mới</li>
           </ul>
         </div>
@@ -24,43 +24,39 @@
             <h4 class="card-title">Thông tin người dùng</h4>
           </div>
           <div class="card-body">
-            <form action="#">
+            <form (ngSubmit)="onSubmit()">
               <div class="form-group row">
                 <label>Ảnh đại diện</label>
-                <input class="form-control" type="file">
+                <input class="form-control" type="text" id="avatar" name="avatar" type="text"  [(ngModel)]="user.avatar">
               </div>
-              <div class="form-group row">
-                <div class="avatar">
-                  <img class="avatar-img rounded" alt="" src="">
-                </div>
-              </div>
+
               <div class="form-group row">
                 <label class="col-form-label col-md-2">Tên người dùng</label>
                 <div class="col-md-10">
-                  <input type="email" class="form-control" required value="">
+                  <input type="email" class="form-control" required id="name" name="name" type="text"  [(ngModel)]="user.name">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-form-label col-md-2">Email</label>
                 <div class="col-md-10">
-                  <input type="email" class="form-control" required value="">
+                  <input type="email" class="form-control" required id="email" name="email" type="text"  [(ngModel)]="user.email">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-form-label col-md-2">Password</label>
                 <div class="col-md-10">
-                  <input type="password" class="form-control" required value="">
+                  <input type="password" class="form-control" required id="password" name="password" type="text"  [(ngModel)]="user.password">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-form-label col-md-2">Ngày tạo</label>
                 <div class="cal-icon col-md-10">
-                  <input class="form-control datetimepicker" type="text" name="date_created" value="">
+                  <input class="form-control datetimepicker" name="date_created" id="date_created" name="date_created" type="date"  [(ngModel)]="user.date_created">
                 </div>
               </div>
               <div class="mt-4">
                 <button class="btn btn-primary" type="submit">Thêm</button>
-                <a href="categories.html" class="btn btn-link">Hủy</a>
+                <a (click)="gotoList()" class="btn btn-link">Hủy</a>
               </div>
             </form>
           </div>

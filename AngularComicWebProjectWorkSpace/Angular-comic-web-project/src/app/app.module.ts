@@ -23,6 +23,9 @@ import { EditAdminComponent } from './edit-admin/edit-admin.component';
 import {HttpClientModule} from "@angular/common/http";
 import { EmployeesComponent } from './employees/employees.component';
 import {FormsModule} from "@angular/forms";
+import { SearchByNamePipe } from './search-by-name.pipe';
+import { ComicLoginComponent } from './comic-login/comic-login.component';
+import { ComicRegisterComponent } from './comic-register/comic-register.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import {FormsModule} from "@angular/forms";
     EditUserComponent,
     AddAdminComponent,
     EditAdminComponent,
-    EmployeesComponent
+    EmployeesComponent,
+    SearchByNamePipe,
+    ComicLoginComponent,
+    ComicRegisterComponent,
   ],
     imports: [
         BrowserModule,
