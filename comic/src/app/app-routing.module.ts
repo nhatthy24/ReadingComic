@@ -5,14 +5,21 @@ import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {DetailComponent} from "./detail/detail.component";
 import {ReadingComponent} from "./reading/reading.component";
 import {HomeComponent} from "./home/home.component";
+import {SigninComponent} from "./signin/signin.component";
+import {SignupComponent} from "./signup/signup.component";
+import {ListComicComponent} from "./list-comic/list-comic.component";
 
 const routes: Routes = [
   { path:'home', component:HomeComponent },
   { path:'comic', component:ComicComponent },
+  { path: 'login', component:SigninComponent},
+  { path: 'register', component:SignupComponent},
+  { path: 'list', component:ListComicComponent},
   { path: 'detail/:id', component: DetailComponent },
   { path: 'reading/:id/:chapter_id', component: ReadingComponent },
   { path:'', redirectTo:'home', pathMatch:'full' },
-  { path:"**", component:PageNotFoundComponent }
+  { path:"**", component:PageNotFoundComponent },
+
 ];
 
 console.log("Dang vao routing root")

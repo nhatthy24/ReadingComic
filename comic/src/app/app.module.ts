@@ -14,6 +14,12 @@ import { HomeComponent } from './home/home.component';
 import { CompletedListComponent } from './home/completed-list/completed-list.component';
 import { NewupdatedListComponent } from './home/newupdated-list/newupdated-list.component';
 import { RecommendedListComponent } from './home/recommended-list/recommended-list.component';
+import { SigninComponent } from './signin/signin.component';
+import { SignupComponent } from './signup/signup.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { HeaderComponent } from './header/header.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ListComicComponent } from './list-comic/list-comic.component';
 
 @NgModule({
   declarations: [
@@ -26,14 +32,21 @@ import { RecommendedListComponent } from './home/recommended-list/recommended-li
     HomeComponent,
     CompletedListComponent,
     NewupdatedListComponent,
-    RecommendedListComponent
+    RecommendedListComponent,
+    SigninComponent,
+    SignupComponent,
+    HeaderComponent,
+    ListComicComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
-    BrowserAnimationsModule
+    ReactiveFormsModule,
+    FormsModule,
+    Ng2SearchPipeModule,
+    BrowserAnimationsModule,
   ],
   exports:[HttpClientModule],
   providers: [],
