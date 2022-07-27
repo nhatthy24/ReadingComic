@@ -1,0 +1,98 @@
+#WPNavbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 52px;
+  position: relative;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 960px;
+  }
+}
+@media (min-width: 768px){
+  .container {
+    width: 740px;
+  }
+  .container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+#WPNavbar #header-item-logo {
+  margin-right: 40px;
+}
+#WPNavbar a {
+  font-weight: 600;
+  padding-right: 25px;
+  color: #222;
+}
+#WPNavbar #header-item-search {
+  -ms-flex-preferred-size: 30%;
+  flex-basis: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+#WPNavbar #header-item-search button {
+  background: 0 0;
+  border: none;
+  outline: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-right: 0;
+}
+#WPNavbar #header-item-search input {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 0 4px;
+  outline: 0;
+  border: none;
+  color: #222;
+}
+
+#WPNavbar #authentication {
+  position: absolute;
+  right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+#WPNavbar #authentication button {
+  background-color: #fff;
+  color: #222;
+  font-size: 16px;
+}
+.dropdown {
+  position: relative;
+}
+#WPNavbar a {
+  font-weight: 600;
+  padding-right: 25px;
+  color: #222;
+}
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px solid;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}

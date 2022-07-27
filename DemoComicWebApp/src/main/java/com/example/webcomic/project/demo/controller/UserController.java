@@ -3,12 +3,15 @@ package com.example.webcomic.project.demo.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,12 +23,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.example.webcomic.project.demo.exeption.ResourceNotFoundException;
 import com.example.webcomic.project.demo.model.Chapter;
 import com.example.webcomic.project.demo.model.Comic;
 import com.example.webcomic.project.demo.model.Comment;
 import com.example.webcomic.project.demo.model.Likes;
+import com.example.webcomic.project.demo.model.Role;
 import com.example.webcomic.project.demo.model.User;
+import com.example.webcomic.project.demo.repository.RoleRepository;
 import com.example.webcomic.project.demo.repository.UserRepository;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -33,6 +39,40 @@ import com.example.webcomic.project.demo.repository.UserRepository;
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+//	@Autowired
+//	private PasswordEncoder encoder;
+//	
+//	@PostMapping("register")
+//	public ResponseEntity<ResponseMessage> registerUser(@Valid @RequestBody Register registerRequest){
+//		if(userRepository.existsByEmail(registerRequest.getEmail())) {
+//			return new ResponseEntity<>(new ResponseMessage("Email is already taken!"), HttpStatus.BAD_REQUEST);
+//		}
+//		// Create user account
+//		User user = new User(registerRequest.getEmail(), registerRequest.getName(), 
+//				encoder.encode(registerRequest.getPassword()));
+//		Set<String> rolesInRequest = registerRequest.getRole();
+//		Set<Role> roles = new HashSet<>();
+//		
+//		rolesInRequest.forEach(role -> {
+//			switch(role) {
+//			case "admin":
+//				Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
+//				roles.add(adminRole);
+//				break;
+//			default:
+//				Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+//				roles.add(userRole);
+//				break;
+//			}
+//		});
+//		user.setRole_id(roles);
+//		userRepository.save(user);
+//		return new ResponseEntity<>(new ResponseMessage("User register successfully!"), HttpStatus.OK);
+//	}
 	
 	@GetMapping("/users")
 	public List<User> getAllComics() {
@@ -93,5 +133,14 @@ public class UserController {
 			throws ResourceNotFoundException {
 		User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
 		return user.getListLikes();
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<?> loginUser(@RequestBody User userData){
+		User user = userRepository.findByEmail(userData.getEmail());
+		if(user.getPassword().equals(userData.getPassword())) {
+			return ResponseEntity.ok(user);
+		}
+		return (ResponseEntity<?>) ResponseEntity.internalServerError();
 	}
 }

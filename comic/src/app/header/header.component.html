@@ -1,0 +1,30 @@
+<nav id="WPNavbar" class="container">
+  <div id="header-item-logo">
+    <a href="/" class="on-navigate" title="Wattpad Home" aria-label="Home">
+      <img src="/img//logos/wp-logo-orange.png" alt="Wattpad" class="wp-logo hidden-xs" width="123">
+    </a>
+  </div>
+<!--  <div id="discover-dropdown" class="dropdown">-->
+<!--    <a href="#">Khám phá<span class="caret"></span>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--  <div id="community-dropdown" class="dropdown">-->
+<!--    <a href="#">Cộng đồng<span class="caret"></span>-->
+<!--    </a>-->
+<!--  </div>-->
+  <form id="header-item-search" name="search">
+    <button routerLink="/list">
+      <span class="fa fa-search fa-wp-neutral-1" aria-hidden="true" style="font-size: 16px;"></span>
+    </button>
+    <input type="hidden" name="ref" value="1">
+  </form>
+  <div id="authentication">
+    <div>
+      <button class="btn btn-sm">Đăng nhập</button>
+    </div>
+    <div id="language-dropdown" class="dropdown">
+      <a href="#">Tiếng Việt<span class="caret"></span>
+      </a>
+    </div>
+  </div>
+</nav>

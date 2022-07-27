@@ -32,7 +32,11 @@ public class User {
 		super();
 	}
 
-	
+	public User(String email, String name, String password) {
+		this.email = email;
+		this.name = name;
+		this.password = password;
+	}
 
 	public User(long id, String name, String avatar, Calendar date_created, long role_id, String password,
 			List<Comment> listComment, List<Likes> listLikes, String email) {
