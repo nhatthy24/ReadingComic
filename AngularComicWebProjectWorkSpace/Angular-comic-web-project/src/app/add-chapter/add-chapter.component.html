@@ -6,11 +6,11 @@
     <div class="page-header">
       <div class="row">
         <div class="col">
-          <h3 class="page-title">Thêm chương mới</h3>
+          <h3 class="page-title">{{'Chapter-add' | translate}}</h3>
           <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a [routerLink]="['/comics']">Truyện</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/comics']">{{'Comic' | translate}}</a></li>
             <li *ngIf="comic" class="breadcrumb-item active"><a [routerLink]="['/comics/'+comic.id+'/chapters']">{{comic.name}}</a></li>
-            <li class="breadcrumb-item active">Thêm chương mới</li>
+            <li class="breadcrumb-item active">{{'Chapter-add' | translate}}</li>
           </ul>
         </div>
 
@@ -25,23 +25,32 @@
         <div class="card">
           <div class="card-body">
 
-            <form (ngSubmit)="onSubmit()">
+            <form #form="ngForm"  (ngSubmit)="onSubmit()">
 
               <div class="form-group">
-                <label>Tên</label>
-                <input class="form-control" type="text" id="name" name="name" [(ngModel)]="chapter.name">
+                <label>{{'Chapter-name' | translate}}</label>
+                <input  required #chapterName="ngModel" [class.is-invalid]="chapterName.invalid" class="form-control" type="text" id="name" name="name" [(ngModel)]="chapter.name">
+                <div *ngIf="chapterName.errors?.required" class="invalid-feedback">
+                  {{'Require-field' | translate}}
+                </div>
               </div>
               <div class="form-group">
-                <label>Ngày xuất bản</label>
-                <input class="form-control" type="date" id="date_created" name="date_created" [(ngModel)]="chapter.date_created">
+                <label>{{'Publication-date' | translate}}</label>
+                <input  required #publicationDate="ngModel" [class.is-invalid]="publicationDate.invalid" class="form-control" type="date" id="date_created" name="date_created" [(ngModel)]="chapter.date_created">
+                <div *ngIf="publicationDate.errors?.required" class="invalid-feedback">
+                  {{'Require-field' | translate}}
+                </div>
               </div>
               <div>
-                <label>Nội dung</label>
-                <textarea style="height: 400px;" name="" class="form-control" id="content" name="content" type="text"  [(ngModel)]="chapter.content"></textarea>
+                <label>{{'Content' | translate}}</label>
+                <textarea  required #content="ngModel" [class.is-invalid]="content.invalid" style="height: 400px;" name="" class="form-control" id="content" name="content" type="text"  [(ngModel)]="chapter.content"></textarea>
+                <div *ngIf="content.errors?.required" class="invalid-feedback">
+                  {{'Require-field' | translate}}
+                </div>
               </div>
               <div class="mt-4">
-                <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
-                <a (click)="gotoList()" class="btn btn-link">Hủy</a>
+                <button  *ngIf="!form.invalid" class="btn btn-primary" type="submit">{{'Save-change' | translate}}</button>
+                <a (click)="gotoList()" class="btn btn-link">{{'Exit' | translate}}</a>
               </div>
             </form>
             <!-- /Form -->

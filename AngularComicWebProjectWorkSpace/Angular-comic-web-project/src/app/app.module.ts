@@ -27,6 +27,12 @@ import { SearchByNamePipe } from './search-by-name.pipe';
 import { ComicLoginComponent } from './comic-login/comic-login.component';
 import { ComicRegisterComponent } from './comic-register/comic-register.component';
 
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient} from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { EmailValidatorDirective } from './email-validator.directive';
+import { UsernameValidatorDirective } from './username-validator.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,15 +56,29 @@ import { ComicRegisterComponent } from './comic-register/comic-register.componen
     SearchByNamePipe,
     ComicLoginComponent,
     ComicRegisterComponent,
+    EmailValidatorDirective,
+    UsernameValidatorDirective,
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         ComicListRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory:httpTranslateLoader,
+          deps: [HttpClient]
+        }
+      })
     ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// AOT compilation support
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

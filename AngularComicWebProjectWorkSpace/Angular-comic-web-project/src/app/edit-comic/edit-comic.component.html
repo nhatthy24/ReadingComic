@@ -6,10 +6,10 @@
     <div class="page-header">
       <div class="row">
         <div class="col">
-          <h3 class="page-title">Sửa truyện</h3>
+          <h3 class="page-title">{{'Comic-edit' | translate}}</h3>
           <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a [routerLink]="['/comics']">Truyện</a></li>
-            <li class="breadcrumb-item active">Sửa truyện</li>
+            <li class="breadcrumb-item"><a [routerLink]="['/comics']">{{'Comic' | translate}}</a></li>
+            <li class="breadcrumb-item active">{{'Comic-edit' | translate}}</li>
           </ul>
         </div>
         <!-- <div class="col-auto text-right">
@@ -78,64 +78,96 @@
               <!-- <table class="table table-hover table-center mb-0 datatable"> -->
               <!-- Thay đổi code ở đây Thay đổi theo file word -->
               <!-- Form -->
-              <form *ngIf="comic" (ngSubmit)="onSubmit()">
+              <form #form="ngForm" *ngIf="comic" (ngSubmit)="onSubmit()">
 
                 <div class="form-group">
-                  <label>Ảnh bìa</label>
-                  <input class="form-control" id="cover_image" name="cover_image" type="text"  [(ngModel)]="comic.cover_image">
-<!--                  <div class="avatar">-->
-<!--                    <img class="avatar-img rounded" alt="" src="{{comic.cover_image}}">-->
-<!--                  </div>-->
+                  <label>{{'Cover-image' | translate}}</label>
+                  <!--                <input class="form-control" type="file">-->
+                  <input required #coverImage="ngModel" [class.is-invalid]="coverImage.invalid" [(ngModel)]="comic.cover_image" id="cover_image" name="cover_image" class="form-control" type="text" value="">
+                  <div *ngIf="coverImage.errors?.required" class="invalid-feedback">
+                    {{'Require-field' | translate}}
+                  </div>
                 </div>
-<!--                <div class="form-group">-->
-<!--                  <div class="avatar">-->
-<!--                    <img class="avatar-img rounded" alt="" src="{{comic.cover_image}}">-->
-<!--                  </div>-->
-<!--                </div>-->
+                <!--              <div class="form-group">-->
+                <!--                <div class="avatar">-->
+                <!--                  <img class="avatar-img rounded" alt="" src="">-->
+                <!--                </div>-->
+                <!--              </div>-->
                 <div class="form-group">
-                  <label>Tên truyện</label>
-                  <input class="form-control" id="name" name="name" type="text"  [(ngModel)]="comic.name">
-                </div>
-                <div class="form-group">
-                  <label>Tác giả</label>
-                  <input class="form-control" id="author" name="author" type="text" [(ngModel)]="comic.author">
-                </div>
-                <div class="form-group">
-                  <label>Quốc gia</label>
-                  <input class="form-control"  id="nation" name="nation" type="text" [(ngModel)]="comic.nation">
+                  <label>{{'Comic-name' | translate}}</label>
+                  <input  required #comicName="ngModel" [class.is-invalid]="comicName.invalid" [(ngModel)]="comic.name" id="name" name="name" class="form-control" type="text" value="">
+                  <div *ngIf="comicName.errors?.required" class="invalid-feedback">
+                    {{'Require-field' | translate}}
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label>Số chương</label>
-                  <input class="form-control" id="chapter_number" name="chapter_number" type="text" [(ngModel)]="comic.chapter_number">
+                  <label>{{'Author' | translate}}</label>
+                  <input  required #author="ngModel" [class.is-invalid]="author.invalid" [(ngModel)]="comic.author" id="author" name="author" class="form-control" type="text" value="">
+                  <div *ngIf="author.errors?.required" class="invalid-feedback">
+                    {{'Require-field' | translate}}
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label>Ngày xuất bản</label>
-                  <input class="form-control"  id="date_created" name="date_created"  type="text" [(ngModel)]="comic.date_created">
+                  <label>{{'Nation' | translate}}</label>
+                  <input  required #nation="ngModel" [class.is-invalid]="nation.invalid" [(ngModel)]="comic.nation" id="nation" name="nation" class="form-control" type="text" value="">
+                  <div *ngIf="nation.errors?.required" class="invalid-feedback">
+                    {{'Require-field' | translate}}
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label>Chọn danh mục</label><br>
-                  <select [(ngModel)]="comic.category"  id="category" name="category" class="form-control select">
+                  <label>{{'Chapter-number' | translate}}</label>
+                  <input  required #chapterNumber="ngModel" [class.is-invalid]="chapterNumber.invalid" [(ngModel)]="comic.chapter_number" id="chapter_number" name="chapter_number" class="form-control" type="number" value="">
+                  <div *ngIf="chapterNumber.errors?.required" class="invalid-feedback">
+                    {{'Require-field' | translate}}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>{{'Publication-date' | translate}}</label>
+                  <input  required #publicationDate="ngModel" [class.is-invalid]="publicationDate.invalid" [(ngModel)]="comic.date_created" id="date_created" name="date_created" class="form-control" type="text" value="">
+                  <div *ngIf="publicationDate.errors?.required" class="invalid-feedback">
+                    {{'Require-field' | translate}}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>{{'Category' | translate}}</label><br>
+                  <select  required #category="ngModel" [class.is-invalid]="category.invalid" [(ngModel)]="comic.category"  id="category" name="category" class="form-control select">
                     <option  *ngFor="let o of options">
                       {{o.name}}
                     </option>
                   </select>
+                  <div *ngIf="category.errors?.required" class="invalid-feedback">
+                    {{'Require-field' | translate}}
+                  </div>
                 </div>
                 <div class="status-toggle">
                   <input [(ngModel)]="comic.display"  id="display" name="display"  type="checkbox">
-                  <label style="margin-left: 2px">Hiển thị</label>
+                  <label style="margin-left: 2px">{{'Display' | translate}}</label>
                   <br>
                   <input [(ngModel)]="comic.full"  id="full" name="full"  type="checkbox">
-                  <label style="margin-left: 2px">Hoàn thành</label>
+                  <label style="margin-left: 2px">{{'Full' | translate}}</label>
                   <!--                <input id="rating_2" class="check" type="checkbox" checked>-->
                   <!--                <label for="rating_2" [(ngModel)]="comic.display" [ngModelOptions]="{standalone: true}" id="display" name="display" class="checktoggle">checkbox</label>-->
                 </div>
                 <div class="form-group">
-                  <label>Mô tả</label>
-                  <textarea style="height: 100px;" class="form-control"  id="description" name="description"  [(ngModel)]="comic.description" type="text"></textarea>
+                  <label>{{'Description' | translate}}</label>
+                  <textarea required #description="ngModel" [class.is-invalid]="description.invalid" [(ngModel)]="comic.description" id="description" name="description"  style="height: 100px;" class="form-control" type="text"></textarea>
+                  <div *ngIf="description.errors?.required" class="invalid-feedback">
+                    {{'Require-field' | translate}}
+                  </div>
                 </div>
+                <!--              <div class="status-toggle">-->
+                <!--                <label>Hiển thị ở mục nổi bật</label>-->
+                <!--                <input id="rating_3" class="check" type="checkbox" checked>-->
+                <!--                <label for="rating_3" class="checktoggle">checkbox</label>-->
+                <!--              </div>-->
+                <!--              <div class="status-toggle">-->
+                <!--                <label>Hiển thị mới nhất</label>-->
+                <!--                <input id="rating_4" class="check" type="checkbox" checked>-->
+                <!--                <label for="rating_4" class="checktoggle">checkbox</label>-->
+                <!--              </div>-->
                 <div class="mt-4">
-                  <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
-                  <a (click)="gotoList()" class="btn btn-link">Hủy</a>
+                  <button  *ngIf="!form.invalid" class="btn btn-primary" type="submit">{{'Save-change' | translate}}</button>
+                  <a (click)="gotoList()" class="btn btn-link">{{'Exit' | translate}}</a>
                 </div>
               </form>
               <!-- /Form -->
