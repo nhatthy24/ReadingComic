@@ -1,17 +1,19 @@
 package com.example.webcomic.project.demo.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.webcomic.project.demo.model.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<User, Long> {
 
-	User findById(long id);
+	Optional<User> findByUsername(String username);
 
-	User findByEmail(String email);
+	Boolean existsByUsername(String username);
 
-	boolean existsByEmail(String email);
+	Boolean existsByEmail(String email);
 
 }

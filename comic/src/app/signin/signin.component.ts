@@ -4,6 +4,8 @@ import {User} from "../model/user";
 import {UserService} from "../service/user/user.service";
 import {error} from "@angular/compiler/src/util";
 import {Router} from "@angular/router";
+import {AuthService} from "../service/auth.service";
+import {TokenStorageService} from "../service/token-storage.service";
 
 @Component({
   selector: 'app-signin',
@@ -11,48 +13,46 @@ import {Router} from "@angular/router";
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
+  form: any = {
+    username: null,
+    password: null
+  };
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
 
-  user: User = new User();
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
-  constructor(private formBuilder: FormBuilder, private userService:UserService,
-              private router: Router) { }
-
-  infoUser = this.formBuilder.group({
-    "email":["",[Validators.required, Validators.email]],
-    "password":["",[Validators.required]]
-  })
-  get form(){
-    return this.infoUser.controls
-  }
   ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.roles = this.tokenStorage.getUser().roles;
+    }
   }
 
-  // onSubmit() {
-  //   console.log(this.infoUser.value)
-  // }
+  onSubmit(): void {
+    const { username, password } = this.form;
 
-  userLogin(){
-    console.log(this.user);
-    this.userService.loginUser(this.user).subscribe(data=>{
-      alert("login successful");
-    },error => alert("Sorry please enter correct"))
+    this.authService.login(username, password).subscribe(
+      data => {
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUser(data);
+
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.tokenStorage.getUser().roles;
+        this.reloadPage();
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      }
+    );
   }
-  // async userLogin(){
-  //   if(this.validate()){
-  //     this.userService.loginUser(this.user).subscribe(data=> {
-  //       console.log(this.user)
-  //       alert("Login success");
-  //       let value = data as {userId: string, token: string};
-  //
-  //       localStorage.setItem('token', value.token);
-  //       this.router.navigate(['/']);
-  //     }, error =>{
-  //       alert("Login fail");
-  //     })
-  //   }
-  // }
-  private validate() {
-    return false;
+
+  reloadPage(): void {
+    window.location.reload();
   }
 }
 

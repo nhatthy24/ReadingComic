@@ -8,6 +8,8 @@ import {HomeComponent} from "./home/home.component";
 import {SigninComponent} from "./signin/signin.component";
 import {SignupComponent} from "./signup/signup.component";
 import {ListComicComponent} from "./list-comic/list-comic.component";
+import {BoardUserComponent} from "./board-user/board-user.component";
+import {BoardAdminComponent} from "./board-admin/board-admin.component";
 
 const routes: Routes = [
   { path:'home', component:HomeComponent },
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'register', component:SignupComponent},
   { path: 'list', component:ListComicComponent},
   { path: 'detail/:id', component: DetailComponent },
+  { path: 'user', component:BoardUserComponent},
+  { path: 'admin', component: BoardAdminComponent},
   { path: 'reading/:id/:chapter_id', component: ReadingComponent },
   { path:'', redirectTo:'home', pathMatch:'full' },
   { path:"**", component:PageNotFoundComponent },

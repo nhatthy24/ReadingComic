@@ -20,6 +20,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HeaderComponent } from './header/header.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ListComicComponent } from './list-comic/list-comic.component';
+import { BoardUserComponent } from './board-user/board-user.component';
+import {BoardAdminComponent} from "./board-admin/board-admin.component";
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { ListComicComponent } from './list-comic/list-comic.component';
     SigninComponent,
     SignupComponent,
     HeaderComponent,
-    ListComicComponent
+    ListComicComponent,
+    BoardAdminComponent,
+    BoardUserComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

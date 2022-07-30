@@ -27,10 +27,6 @@ public class Likes {
 		super();
 	}
 
-	
-	
-	
-
 	public Likes(long id, User user, Comic comic, Calendar date_created) {
 		super();
 		this.id = id;
@@ -38,10 +34,6 @@ public class Likes {
 		this.comic = comic;
 		this.date_created = date_created;
 	}
-
-
-
-
 
 	public Likes(long id) {
 		super();

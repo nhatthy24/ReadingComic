@@ -2,32 +2,45 @@ package com.example.webcomic.project.demo.model;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 @Entity
+@Table(name = "user", 
+uniqueConstraints = { 
+  @UniqueConstraint(columnNames = "username"),
+  @UniqueConstraint(columnNames = "email") 
+})
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@NotBlank
+	@Size(max = 20)
+	private String username;
 	private String name;
 	private String avatar;
 	private Calendar date_created;
-	private long role_id;
+	@NotBlank
+	@Size(max = 120)
 	private String password;
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Comment> listComment;
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Likes> listLikes;
+	@NotBlank
+	@Size(max = 50)
+	@Email
 	private String email;
-	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
+
 	public User() {
 		super();
 	}
@@ -38,21 +51,18 @@ public class User {
 		this.password = password;
 	}
 
-	public User(long id, String name, String avatar, Calendar date_created, long role_id, String password,
+	public User(long id, String name, String avatar, Calendar date_created, String password,
 			List<Comment> listComment, List<Likes> listLikes, String email) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.avatar = avatar;
 		this.date_created = date_created;
-		this.role_id = role_id;
 		this.password = password;
 		this.listComment = listComment;
 		this.listLikes = listLikes;
 		this.email = email;
 	}
-
-
 
 	public long getId() {
 		return id;
@@ -86,14 +96,6 @@ public class User {
 		this.date_created = date_created;
 	}
 
-	public long getRole_id() {
-		return role_id;
-	}
-
-	public void setRole_id(long role_id) {
-		this.role_id = role_id;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -118,19 +120,30 @@ public class User {
 		this.listLikes = listLikes;
 	}
 
-
-
 	public String getEmail() {
 		return email;
 	}
 
-
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 	
 	
-	
-	
+
 }

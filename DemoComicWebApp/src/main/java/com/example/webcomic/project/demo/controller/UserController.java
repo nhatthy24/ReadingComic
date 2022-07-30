@@ -135,12 +135,12 @@ public class UserController {
 		return user.getListLikes();
 	}
 	
-	@PostMapping("/login")
-	public ResponseEntity<?> loginUser(@RequestBody User userData){
-		User user = userRepository.findByEmail(userData.getEmail());
-		if(user.getPassword().equals(userData.getPassword())) {
-			return ResponseEntity.ok(user);
-		}
-		return (ResponseEntity<?>) ResponseEntity.internalServerError();
-	}
+//	@PostMapping("/login")
+//	public ResponseEntity<?> loginUser(@RequestBody User userData){
+//		User user = userRepository.findByEmail(userData.getEmail());
+//		if(user.getPassword().equals(userData.getPassword())) {
+//			return ResponseEntity.ok(user);
+//		}
+//		return (ResponseEntity<?>) ResponseEntity.internalServerError();
+//	}
 }

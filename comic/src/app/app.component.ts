@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {RouterOutlet} from "@angular/router";
+import {TokenStorageService} from "./service/token-storage.service";
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,5 @@ export class AppComponent {
     return myOutlet && myOutlet.activatedRouteData &&
       myOutlet.activatedRouteData['animation'];
   }
+
 }
